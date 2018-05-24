@@ -14,7 +14,7 @@
     <body>
         <h1>Listados</h1>
         <a class="btn btn-primary"
-           href="${pageContext.servletContext.contextPath}/views/listarcreditos.jsp">Listar Creditos</a><br>
+           href="${pageContext.servletContext.contextPath}/RegistrarServlet?accion=listar">Listar Creditos</a><br>
         <a class="btn btn-primary"
            href="${pageContext.servletContext.contextPath}/views/listar.jsp">Top Creditos</a><br>
         <a class="btn btn-primary"

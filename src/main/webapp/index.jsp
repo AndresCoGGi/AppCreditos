@@ -45,7 +45,10 @@
                 <option value="si">Si</option>
                 <option value="no" >No</option>
             </select><br>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Registrar</button>
+            <button name="accion" value="crear" 
+                                        type="submit" 
+                                        class="btn btn-primary">
+                                    Registrar</button>
             <p class="mt-5 mb-3 text-muted">&copy; 2017-2018</p>
         </form><br>
     <center>
