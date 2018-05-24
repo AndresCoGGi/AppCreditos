@@ -9,6 +9,7 @@ import co.com.poli.appcreditos.business.implementation.UsuarioBusinessImpl;
 import co.com.poli.appcreditos.model.Usuario;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -53,6 +54,9 @@ public class RegistrarServlet extends HttpServlet {
                 rd = request.getRequestDispatcher("/mensaje.jsp");
                 break;
             case "listar":
+                List<Usuario> listaUsuarios = uBusinessImpl.ObtenerListaUsuarios();
+                session.setAttribute("LISTADO", listaUsuarios);
+                rd = request.getRequestDispatcher("/views/listarcreditos.jsp");
                 break;
             default:
                 break;
