@@ -16,7 +16,4 @@ public interface IUsuarioDao {
     
     String crearUsuario(Usuario usuario);
     List<Usuario> ObtenerListaUsuarios();
-    //String TopCredito();
-    //String prestamoMayor();
-    //String prestanMas();
 }

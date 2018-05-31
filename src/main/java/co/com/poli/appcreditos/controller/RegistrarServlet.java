@@ -34,13 +34,15 @@ public class RegistrarServlet extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         HttpSession session = request.getSession();
         RequestDispatcher rd = null;
         UsuarioBusinessImpl uBusinessImpl = new UsuarioBusinessImpl();
         String accion = request.getParameter("accion");
         switch (accion) {
             case "crear":
+                Boolean sw = false;
+                Boolean sw2 = false;
                 String numcredito = request.getParameter("txtcredito");
                 String documento = request.getParameter("txtdocumento");
                 String nombres = request.getParameter("txtnombre");
@@ -49,14 +51,46 @@ public class RegistrarServlet extends HttpServlet {
                 String tipocredito = request.getParameter("txttipocredito");
                 String trabaja = request.getParameter("txttrabaja");
                 Usuario usuario = new Usuario(numcredito, documento, nombres, monto, tipotrabajador, tipocredito, trabaja);
-                String mensaje = uBusinessImpl.crearUsuario(usuario);
-                session.setAttribute("MENSAJE", mensaje);
-                rd = request.getRequestDispatcher("/mensaje.jsp");
+                sw = uBusinessImpl.UsuarioExiste(documento, tipocredito);
+                sw2 = uBusinessImpl.CreditoExiste(numcredito);
+                if (sw == true) {
+                    String menssaje = "Hola " + nombres + ", lo sentimos usted "
+                            + "ya cuenta con un credito de " + tipocredito;
+                    session.setAttribute("MENSAJE", menssaje);
+                    rd = request.getRequestDispatcher("/mensaje.jsp");
+                } else if (sw2 == true) {
+                    String menssaje = "Ya existe el credito numero " + numcredito;
+                    session.setAttribute("MENSAJE", menssaje);
+                    rd = request.getRequestDispatcher("/mensaje.jsp");
+                } else {
+                    String mensaje = uBusinessImpl.crearUsuario(usuario);
+                    List<Usuario> listaUsuarios = uBusinessImpl.ObtenerListaUsuarios();
+                    session.setAttribute("LISTADO", listaUsuarios);
+                    rd = request.getRequestDispatcher("/views/listarcreditos.jsp");
+                }
                 break;
             case "listar":
-                List<Usuario> listaUsuarios = uBusinessImpl.ObtenerListaUsuarios();
-                session.setAttribute("LISTADO", listaUsuarios);
+                List<Usuario> listaUsuarios2 = uBusinessImpl.ObtenerListaUsuarios();
+                session.setAttribute("LISTADO", listaUsuarios2);
                 rd = request.getRequestDispatcher("/views/listarcreditos.jsp");
+                break;
+            case "top":
+                String mensajetop = "";
+                mensajetop = uBusinessImpl.TopCredito();
+                session.setAttribute("MENSAJE", mensajetop);
+                rd = request.getRequestDispatcher("/mensaje.jsp");
+                break;
+            case "creditoMas":
+                String menssaje = "";
+                menssaje = uBusinessImpl.prestamoMayor();
+                session.setAttribute("MENSAJE", menssaje);
+                rd = request.getRequestDispatcher("/mensaje.jsp");
+                break;
+            case "prestanMas":
+                String mensajeMas = "";
+                mensajeMas = uBusinessImpl.prestanMas();
+                session.setAttribute("MENSAJE", mensajeMas);
+                rd = request.getRequestDispatcher("/mensaje.jsp");
                 break;
             default:
                 break;

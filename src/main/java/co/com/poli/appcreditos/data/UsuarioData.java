@@ -22,7 +22,15 @@ public class UsuarioData {
         listaUsuarios = new ArrayList<Usuario>(){
             {
                 add(new Usuario("001", "1020", "Andres Correa",1000D, 
-                                       "Independiente", "Vivienda", "si"));
+                                       "independiente", "vivienda", "si"));
+                add(new Usuario("002", "1030", "Santiago Correa",3000D, 
+                                       "dependiente", "vivienda", "no"));
+                add(new Usuario("003", "1040", "Bere Giraldo",1000D, 
+                                       "independiente", "estudio", "si"));
+                add(new Usuario("004", "1050", "Alberto Correa",1000D, 
+                                       "independiente", "estudio", "si"));
+                add(new Usuario("005", "1060", "Laura Diaz",7000D, 
+                                       "dependiente", "estudio", "no"));
             }  
         };
     }

@@ -4,9 +4,17 @@
         <servlet-name>RegistrarServlet</servlet-name>
         <servlet-class>co.com.poli.appcreditos.controller.RegistrarServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UsuariosServlet</servlet-name>
+        <servlet-class>co.com.poli.appcreditos.controller.UsuariosServlet</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrarServlet</servlet-name>
         <url-pattern>/RegistrarServlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UsuariosServlet</servlet-name>
+        <url-pattern>/UsuariosServlet</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
