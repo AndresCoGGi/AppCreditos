@@ -5,10 +5,14 @@
  */
 package co.com.poli.appcreditos.dao.implementation;
 
+import co.com.poli.appcreditos.controller.TblusuariosJpaController;
 import co.com.poli.appcreditos.dao.IUsuarioDao;
-import co.com.poli.appcreditos.data.UsuarioData;
-import co.com.poli.appcreditos.model.Usuario;
+import co.com.poli.appcreditos.model.Tblusuarios;
+import co.com.poli.appcreditos.util.JPAFactory;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -16,17 +20,29 @@ import java.util.List;
  */
 public class UsuarioDaoImpl implements IUsuarioDao{
 
+//    @Override
+//    public List<Usuario> ObtenerListaUsuarios() {
+//         return UsuarioData.getListaUsuarios();
+//    }
+
     @Override
-    public List<Usuario> ObtenerListaUsuarios() {
-         return UsuarioData.getListaUsuarios();
-    }
-    
-    @Override
-    public String crearUsuario(Usuario usuario) {
-        List<Usuario> listaUsuarios = UsuarioData.getListaUsuarios();
-        listaUsuarios.add(usuario);
-        UsuarioData.setListaUsuarios(listaUsuarios);
+    public String crearUsuario(Tblusuarios usuario) {
+        try {
+            TblusuariosJpaController tblusuariosJpaController =new TblusuariosJpaController(JPAFactory.getFACTORY());
+            tblusuariosJpaController.create(usuario);
+            
+        } catch (Exception ex) {
+            Logger.getLogger(UsuarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
+        }
         return "Usuario creado";
+    }
+
+    @Override
+    public List<Tblusuarios> ObtenerListaUsuarios() {
+        List<Tblusuarios> listado = new ArrayList<>();
+        TblusuariosJpaController tblusuariosJpaController =new TblusuariosJpaController(JPAFactory.getFACTORY());
+        listado = tblusuariosJpaController.findTblusuariosEntities();
+        return listado;
     }
     
 }

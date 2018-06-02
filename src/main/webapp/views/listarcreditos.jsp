@@ -62,8 +62,8 @@
                                     <td><c:out value="${usuario.getDocumento()}"/></td>
                                     <td><c:out value="${usuario.getNombre()}"/></td>
                                     <td><c:out value="${usuario.getMonto()}"/></td>
-                                    <td><c:out value="${usuario.getTipoTrabajador()}"/></td>
-                                    <td><c:out value="${usuario.getTipoCredito()}"/></td>
+                                    <td><c:out value="${usuario.getTipotrabajador()}"/></td>
+                                    <td><c:out value="${usuario.getTipocredito()}"/></td>
                                     <td><c:out value="${usuario.getTrabaja()}"/></td>
                                     <td></td>
 

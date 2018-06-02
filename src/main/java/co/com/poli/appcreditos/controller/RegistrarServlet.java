@@ -6,7 +6,8 @@
 package co.com.poli.appcreditos.controller;
 
 import co.com.poli.appcreditos.business.implementation.UsuarioBusinessImpl;
-import co.com.poli.appcreditos.model.Usuario;
+import co.com.poli.appcreditos.model.Tblusuarios;
+import co.com.poli.appcreditos.util.JPAFactory;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -39,6 +40,10 @@ public class RegistrarServlet extends HttpServlet {
         RequestDispatcher rd = null;
         UsuarioBusinessImpl uBusinessImpl = new UsuarioBusinessImpl();
         String accion = request.getParameter("accion");
+
+        TblusuariosJpaController jpaController
+                = new TblusuariosJpaController(JPAFactory.getFACTORY());
+        Tblusuarios tblusuarios;
         switch (accion) {
             case "crear":
                 Boolean sw = false;
@@ -50,27 +55,23 @@ public class RegistrarServlet extends HttpServlet {
                 String tipotrabajador = request.getParameter("txttipotrabajador");
                 String tipocredito = request.getParameter("txttipocredito");
                 String trabaja = request.getParameter("txttrabaja");
-                Usuario usuario = new Usuario(numcredito, documento, nombres, monto, tipotrabajador, tipocredito, trabaja);
+                
+                tblusuarios = new Tblusuarios(numcredito, documento, nombres, monto, tipotrabajador, tipocredito, trabaja);
                 sw = uBusinessImpl.UsuarioExiste(documento, tipocredito);
-                sw2 = uBusinessImpl.CreditoExiste(numcredito);
                 if (sw == true) {
                     String menssaje = "Hola " + nombres + ", lo sentimos usted "
                             + "ya cuenta con un credito de " + tipocredito;
                     session.setAttribute("MENSAJE", menssaje);
                     rd = request.getRequestDispatcher("/mensaje.jsp");
-                } else if (sw2 == true) {
-                    String menssaje = "Ya existe el credito numero " + numcredito;
-                    session.setAttribute("MENSAJE", menssaje);
-                    rd = request.getRequestDispatcher("/mensaje.jsp");
                 } else {
-                    String mensaje = uBusinessImpl.crearUsuario(usuario);
-                    List<Usuario> listaUsuarios = uBusinessImpl.ObtenerListaUsuarios();
+                    String mensaje = uBusinessImpl.crearUsuario(tblusuarios);
+                    List<Tblusuarios> listaUsuarios = uBusinessImpl.ObtenerListaUsuarios();
                     session.setAttribute("LISTADO", listaUsuarios);
                     rd = request.getRequestDispatcher("/views/listarcreditos.jsp");
                 }
                 break;
             case "listar":
-                List<Usuario> listaUsuarios2 = uBusinessImpl.ObtenerListaUsuarios();
+                List<Tblusuarios> listaUsuarios2 = uBusinessImpl.ObtenerListaUsuarios();
                 session.setAttribute("LISTADO", listaUsuarios2);
                 rd = request.getRequestDispatcher("/views/listarcreditos.jsp");
                 break;

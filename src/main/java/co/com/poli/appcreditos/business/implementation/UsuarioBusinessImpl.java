@@ -7,7 +7,7 @@ package co.com.poli.appcreditos.business.implementation;
 
 import co.com.poli.appcreditos.business.IUsuarioBusiness;
 import co.com.poli.appcreditos.dao.implementation.UsuarioDaoImpl;
-import co.com.poli.appcreditos.model.Usuario;
+import co.com.poli.appcreditos.model.Tblusuarios;
 import java.util.List;
 
 /**
@@ -18,13 +18,22 @@ public class UsuarioBusinessImpl implements IUsuarioBusiness {
 
     private UsuarioDaoImpl usuarioDaoImpl = new UsuarioDaoImpl();
 
+//    @Override
+//    public String crearUsuario(Usuario usuario) {
+//        return usuarioDaoImpl.crearUsuario(usuario);
+//    }
+//
+//    @Override
+//    public List<Usuario> ObtenerListaUsuarios() {
+//        return usuarioDaoImpl.ObtenerListaUsuarios();
+//    }
     @Override
-    public String crearUsuario(Usuario usuario) {
+    public String crearUsuario(Tblusuarios usuario) {
         return usuarioDaoImpl.crearUsuario(usuario);
     }
 
     @Override
-    public List<Usuario> ObtenerListaUsuarios() {
+    public List<Tblusuarios> ObtenerListaUsuarios() {
         return usuarioDaoImpl.ObtenerListaUsuarios();
     }
 
@@ -34,13 +43,13 @@ public class UsuarioBusinessImpl implements IUsuarioBusiness {
         int vivienda = 0;
         int estudio = 0;
         int libre = 0;
-        List<Usuario> listaUsuarios = usuarioDaoImpl.ObtenerListaUsuarios();
-        for (Usuario userList : listaUsuarios) {
-            if (userList.getTipoCredito().equals("vivienda")) {
+        List<Tblusuarios> listaUsuarios = usuarioDaoImpl.ObtenerListaUsuarios();
+        for (Tblusuarios listaUsuario : listaUsuarios) {
+            if (listaUsuario.getTipocredito().equals("vivienda")) {
                 vivienda++;
-            } else if (userList.getTipoCredito().equals("estudio")) {
+            } else if (listaUsuario.getTipocredito().equals("estudio")) {
                 estudio++;
-            } else if (userList.getTipoCredito().equals("libreinversion")) {
+            } else if (listaUsuario.getTipocredito().equals("libreinversion")) {
                 libre++;
             }
         }
@@ -62,14 +71,14 @@ public class UsuarioBusinessImpl implements IUsuarioBusiness {
         Double vivienda = 0.0;
         Double estudio = 0.0;
         Double libre = 0.0;
-        List<Usuario> listaUsuarios = usuarioDaoImpl.ObtenerListaUsuarios();
-        for (Usuario userList : listaUsuarios) {
-            if (userList.getTipoCredito().equals("vivienda")) {
-                vivienda = vivienda + userList.getMonto();
-            } else if (userList.getTipoCredito().equals("estudio")) {
-                estudio = estudio + userList.getMonto();
-            } else if (userList.getTipoCredito().equals("libreinversion")) {
-                libre = libre + userList.getMonto();
+        List<Tblusuarios> listaUsuarios = usuarioDaoImpl.ObtenerListaUsuarios();
+        for (Tblusuarios listaUsuario : listaUsuarios) {
+            if (listaUsuario.getTipocredito().equals("vivienda")) {
+                vivienda = vivienda + listaUsuario.getMonto();
+            } else if (listaUsuario.getTipocredito().equals("estudio")) {
+                estudio = estudio + listaUsuario.getMonto();
+            } else if (listaUsuario.getTipocredito().equals("libreinversion")) {
+                libre = libre + listaUsuario.getMonto();
             }
         }
         if (vivienda > estudio && vivienda > libre) {
@@ -87,11 +96,11 @@ public class UsuarioBusinessImpl implements IUsuarioBusiness {
         String mensaje = "";
         Integer independiente = 0;
         Integer dependiente = 0;
-        List<Usuario> listaUsuarios = usuarioDaoImpl.ObtenerListaUsuarios();
-        for (Usuario userList : listaUsuarios) {
-            if (userList.getTipoTrabajador().equals("independiente")) {
+        List<Tblusuarios> listaUsuarios = usuarioDaoImpl.ObtenerListaUsuarios();
+        for (Tblusuarios listaUsuario : listaUsuarios) {
+            if (listaUsuario.getTipotrabajador().equals("independiente")) {
                 independiente++;
-            } else if (userList.getTipoTrabajador().equals("dependiente")) {
+            } else if (listaUsuario.getTipotrabajador().equals("dependiente")) {
                 dependiente++;
             }
         }
@@ -108,10 +117,10 @@ public class UsuarioBusinessImpl implements IUsuarioBusiness {
     @Override
     public Boolean UsuarioExiste(String documento, String tipoCredito) {
         Boolean sw = false;
-        List<Usuario> listaUsuarios = usuarioDaoImpl.ObtenerListaUsuarios();
-        for (Usuario listaUsuario : listaUsuarios) {
+        List<Tblusuarios> listaUsuarios = usuarioDaoImpl.ObtenerListaUsuarios();
+        for (Tblusuarios listaUsuario : listaUsuarios) {
             if (listaUsuario.getDocumento().equals(documento)) {
-                if (listaUsuario.getTipoCredito().equals(tipoCredito)) {
+                if (listaUsuario.getTipocredito().equals(tipoCredito)) {
                     sw = true;
                 }
             }
@@ -119,16 +128,8 @@ public class UsuarioBusinessImpl implements IUsuarioBusiness {
         return sw;
     }
 
-    @Override
-    public Boolean CreditoExiste(String idCredito) {
-        Boolean sw = false;
-        List<Usuario> listaUsuarios = usuarioDaoImpl.ObtenerListaUsuarios();
-        for (Usuario listaUsuario : listaUsuarios) {
-            if (listaUsuario.getCredito().equals(idCredito)) {
-                sw = true;
-            }
-        }
-        return sw;
-    }
+    
+
+    
 
 }

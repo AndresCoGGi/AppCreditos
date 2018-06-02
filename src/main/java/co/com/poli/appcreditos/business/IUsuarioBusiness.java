@@ -5,7 +5,7 @@
  */
 package co.com.poli.appcreditos.business;
 
-import co.com.poli.appcreditos.model.Usuario;
+import co.com.poli.appcreditos.model.Tblusuarios;
 import java.util.List;
 
 /**
@@ -14,11 +14,10 @@ import java.util.List;
  */
 public interface IUsuarioBusiness {
 
-    String crearUsuario(Usuario usuario);
-    List<Usuario> ObtenerListaUsuarios();
+    String crearUsuario(Tblusuarios usuario);
+    List<Tblusuarios> ObtenerListaUsuarios();
     String  TopCredito();
     String prestamoMayor();
     String prestanMas();
     Boolean UsuarioExiste(String documento,String tipoCredito);
-    Boolean CreditoExiste(String idCredito);
 }

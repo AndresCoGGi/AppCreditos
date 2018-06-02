@@ -5,7 +5,7 @@
  */
 package co.com.poli.appcreditos.dao;
 
-import co.com.poli.appcreditos.model.Usuario;
+import co.com.poli.appcreditos.model.Tblusuarios;
 import java.util.List;
 
 /**
@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface IUsuarioDao {
     
-    String crearUsuario(Usuario usuario);
-    List<Usuario> ObtenerListaUsuarios();
+    String crearUsuario(Tblusuarios usuario);
+    List<Tblusuarios> ObtenerListaUsuarios();
 }
