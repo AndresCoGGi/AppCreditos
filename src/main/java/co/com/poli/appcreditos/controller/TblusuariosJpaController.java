@@ -135,5 +135,5 @@ public class TblusuariosJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

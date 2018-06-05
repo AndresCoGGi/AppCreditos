@@ -14,7 +14,7 @@ import java.util.List;
  */
 public interface IUsuarioBusiness {
 
-    String crearUsuario(Tblusuarios usuario);
+    Boolean crearUsuario(Tblusuarios usuario);
     List<Tblusuarios> ObtenerListaUsuarios();
     String  TopCredito();
     String prestamoMayor();

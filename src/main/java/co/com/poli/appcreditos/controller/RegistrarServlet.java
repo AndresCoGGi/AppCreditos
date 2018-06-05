@@ -55,7 +55,7 @@ public class RegistrarServlet extends HttpServlet {
                 String tipotrabajador = request.getParameter("txttipotrabajador");
                 String tipocredito = request.getParameter("txttipocredito");
                 String trabaja = request.getParameter("txttrabaja");
-                
+
                 tblusuarios = new Tblusuarios(numcredito, documento, nombres, monto, tipotrabajador, tipocredito, trabaja);
                 sw = uBusinessImpl.UsuarioExiste(documento, tipocredito);
                 if (sw == true) {
@@ -64,10 +64,18 @@ public class RegistrarServlet extends HttpServlet {
                     session.setAttribute("MENSAJE", menssaje);
                     rd = request.getRequestDispatcher("/mensaje.jsp");
                 } else {
-                    String mensaje = uBusinessImpl.crearUsuario(tblusuarios);
-                    List<Tblusuarios> listaUsuarios = uBusinessImpl.ObtenerListaUsuarios();
-                    session.setAttribute("LISTADO", listaUsuarios);
-                    rd = request.getRequestDispatcher("/views/listarcreditos.jsp");
+                    Boolean mensaje = uBusinessImpl.crearUsuario(tblusuarios);
+                    if (mensaje == true) {
+                        String menssaje = "lo sentimos el credito numero "+numcredito+" "
+                                + "ya existe";
+                        session.setAttribute("MENSAJE", menssaje);
+                        rd = request.getRequestDispatcher("/mensaje.jsp");
+                    } else {
+                        List<Tblusuarios> listaUsuarios = uBusinessImpl.ObtenerListaUsuarios();
+                        session.setAttribute("LISTADO", listaUsuarios);
+                        rd = request.getRequestDispatcher("/views/listarcreditos.jsp");
+                    }
+
                 }
                 break;
             case "listar":

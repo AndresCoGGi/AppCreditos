@@ -14,6 +14,6 @@ import java.util.List;
  */
 public interface IUsuarioDao {
     
-    String crearUsuario(Tblusuarios usuario);
+    Boolean crearUsuario(Tblusuarios usuario);
     List<Tblusuarios> ObtenerListaUsuarios();
 }

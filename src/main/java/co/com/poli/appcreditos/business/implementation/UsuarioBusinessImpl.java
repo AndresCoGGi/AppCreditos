@@ -28,7 +28,7 @@ public class UsuarioBusinessImpl implements IUsuarioBusiness {
 //        return usuarioDaoImpl.ObtenerListaUsuarios();
 //    }
     @Override
-    public String crearUsuario(Tblusuarios usuario) {
+    public Boolean crearUsuario(Tblusuarios usuario) {
         return usuarioDaoImpl.crearUsuario(usuario);
     }
 

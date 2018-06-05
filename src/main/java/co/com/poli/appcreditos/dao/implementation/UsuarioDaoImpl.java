@@ -18,31 +18,32 @@ import java.util.logging.Logger;
  *
  * @author ANDRESCOGI
  */
-public class UsuarioDaoImpl implements IUsuarioDao{
+public class UsuarioDaoImpl implements IUsuarioDao {
 
 //    @Override
 //    public List<Usuario> ObtenerListaUsuarios() {
 //         return UsuarioData.getListaUsuarios();
 //    }
-
     @Override
-    public String crearUsuario(Tblusuarios usuario) {
+    public Boolean crearUsuario(Tblusuarios usuario) {
+        Boolean sw = false;
         try {
-            TblusuariosJpaController tblusuariosJpaController =new TblusuariosJpaController(JPAFactory.getFACTORY());
+            TblusuariosJpaController tblusuariosJpaController = new TblusuariosJpaController(JPAFactory.getFACTORY());
             tblusuariosJpaController.create(usuario);
-            
+
         } catch (Exception ex) {
+            sw = true;
             Logger.getLogger(UsuarioDaoImpl.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return "Usuario creado";
+        return sw;
     }
 
     @Override
     public List<Tblusuarios> ObtenerListaUsuarios() {
         List<Tblusuarios> listado = new ArrayList<>();
-        TblusuariosJpaController tblusuariosJpaController =new TblusuariosJpaController(JPAFactory.getFACTORY());
+        TblusuariosJpaController tblusuariosJpaController = new TblusuariosJpaController(JPAFactory.getFACTORY());
         listado = tblusuariosJpaController.findTblusuariosEntities();
         return listado;
     }
-    
+
 }
